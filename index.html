@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С Днем Святого Валентина! ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 0;
+            background: #f7c6d1;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            user-select: none;
+            position: relative;
+        }
+        .hidden { display: none; }
+        .password-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        #password {
+            font-size: 24px;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+        }
+        .lock-icon {
+            position: absolute;
+            right: 10px;
+            font-size: 20px;
+        }
+        .content-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #dba0ab;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        .calculator {
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            gap: 10px;
+            background: #ffb6c1;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .calculator button {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            background: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .photo-gallery {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .photo-gallery img {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+        }
+        .photo-button {
+            font-size: 24px;
+            background: #ffb6c1;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: fall 3s linear infinite;
+            z-index: 1;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-100vh); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        .love-text-box, .photo-text-box {
+            background-color: #e3a4b3; /* Тёмный розовый для выделения */
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 20px;
+            width: 80%; /* Чтобы адаптировалось под мобильные устройства */
+        }
+        .love-text-box p, .photo-text-box p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        .button {
+            font-size: 20px;
+            background-color: #d69fa8;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+        }
+        @keyframes fadeInUp {
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Добавление стилей для мобильных устройств */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+            }
+            .content-wrapper {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .calculator {
+                grid-template-columns: repeat(3, 50px);
+                gap: 8px;
+            }
+            .love-text-box {
+                max-width: 90%;
+                margin: 15px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="password-screen" class="password-container">
+        <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Котик ко Дню Валентина" width="150">
+        <h1>Введи дату своего рождения 💖</h1>
+        <div class="input-container">
+            <input type="password" id="password">
+            <span class="lock-icon">🔒</span>
+        </div>
+        <div class="content-wrapper">
+            <img src='https://i.postimg.cc/8c1YR2Gq/cats.jpg' alt='cats' width='150'>
+            <div class="calculator">
+                <button onclick="enterNumber(1)">1</button>
+                <button onclick="enterNumber(2)">2</button>
+                <button onclick="enterNumber(3)">3</button>
+                <button onclick="enterNumber(4)">4</button>
+                <button onclick="enterNumber(5)">5</button>
+                <button onclick="enterNumber(6)">6</button>
+                <button onclick="enterNumber(7)">7</button>
+                <button onclick="enterNumber(8)">8</button>
+                <button onclick="enterNumber(9)">9</button>
+                <button onclick="clearPassword()">⌫</button>
+                <button onclick="enterNumber(0)">0</button>
+                <button onclick="checkPassword()">✔</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="puzzle-screen" class="hidden">
+        <h1>Это мы</h1>
+        <div class="photo-gallery">
+            <button class="photo-button" onclick="prevPhoto()">⬅</button>
+            <img id="gallery-image" src="https://i.postimg.cc/bDRrtd7V/caaats.jpg" alt="Фото">
+            <button class="photo-button" onclick="nextPhoto()">➡</button>
+        </div>
+        <button class="button" id="loveButton" onclick="goToLovePage()">Нажми на меня</button>
+    </div>
+
+    <div id="love-page" class="hidden">
+        <h1>Мое послание о любви 💖</h1>
+        <div class="love-text-box">
+            <p>Моя дорогая, я хочу сказать тебе, как сильно я тебя люблю. Ты - мое всё, моя самая большая радость и счастье. Каждый момент, который я провожу с тобой, для меня бесценен. Ты — невероятно важная часть моей жизни, и я горжусь, что могу быть рядом с тобой. Я обещаю любить тебя, поддерживать и заботиться о тебе всегда. Ты — мое сердце, и я всегда буду рядом, несмотря на всё, что нас может ожидать.</p>
+        </div>
+    </div>
+
+    <script>
+        function enterNumber(num) {
+            document.getElementById('password').value += num;
+        }
+
+        function clearPassword() {
+            document.getElementById('password').value = '';
+        }
+
+        let photoIndex = 0;
+        const photos = [
+            'https://i.postimg.cc/bDRrtd7V/caaats.jpg',
+            'https://i.postimg.cc/V5D5srBd/cccat.jpg',
+            'https://i.postimg.cc/ykxxD1vn/cots.jpg'
+        ];
+
+        function prevPhoto() {
+            photoIndex = (photoIndex - 1 + photos.length) % photos.length;
+            document.getElementById('gallery-image').src = photos[photoIndex];
+        }
+
+        function nextPhoto() {
+            photoIndex = (photoIndex + 1) % photos.length;
+            document.getElementById('gallery-image').src = photos[photoIndex];
+            if (photoIndex === photos.length - 1) {
+                document.getElementById('loveButton').style.opacity = '1';
+                document.getElementById('loveButton').style.transform = 'translateY(0)';
+            }
+        }
+
+        function checkPassword() {
+            if (document.getElementById('password').value === '2106') {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('puzzle-screen').classList.remove('hidden');
+                generateHearts();
+            } else {
+                alert('Неправильный пароль!');
+            }
+        }
+
+        function generateHearts() {
+            setInterval(() => {
+                let heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * -50 + 'vh';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 3000);
+            }, 500);
+        }
+
+        function goToLovePage() {
+            document.getElementById('puzzle-screen').classList.add('hidden');
+            document.getElementById('love-page').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
